@@ -1,0 +1,27 @@
+--CREATE DATABASE VideoClub;
+--GO
+CREATE TABLE Clients (
+  ID_Client INT IDENTITY(1,1) PRIMARY KEY,
+  DNI VARCHAR(40) NOT NULL,
+  Name VARCHAR(15) NOT NULL,
+  LastName VARCHAR(15) NOT NULL,
+  BirthDate DATE,
+  email VARCHAR(30),
+  pass VARCHAR(12)
+);
+GO
+CREATE TABLE Movies (
+  ID_Movie INT IDENTITY(1,1) PRIMARY KEY,
+  Title VARCHAR(40) NOT NULL,
+  RecommendedAge INT,
+  Synopsis VARCHAR(255),
+);
+GO
+CREATE TABLE Rented (
+  ID_Rented INT IDENTITY(1,1) PRIMARY KEY,
+  ID_Client INT NOT NULL,
+  ID_Movie INT NOT NULL,
+  FOREIGN KEY (ID_Client) REFERENCES Clients(ID_Client),
+  FOREIGN KEY (ID_Movie) REFERENCES Movies(ID_Movie)
+  );
+
