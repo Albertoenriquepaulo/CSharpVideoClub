@@ -3,6 +3,8 @@ using System.Drawing;
 using System.Data;
 using VideoClub.Class.Tables;
 using Console = Colorful.Console;
+using System.Threading;
+using System.Text;
 
 namespace VideoClub.Class.Helpers
 {
@@ -113,6 +115,73 @@ namespace VideoClub.Class.Helpers
                 }
             }
             return clientToLoad;
+        }
+
+        public static void ShowProgressBar(int ms, double value)
+        {
+            using (var progress = new ProgressBar())
+            {
+                for (int i = 0; i <= 100; i++)
+                {
+                    progress.Report((double)i / value);
+                    Thread.Sleep(ms);
+                }
+            }
+            // Console.WriteLine("Done.");
+        }
+
+        public static string ReadPassWord()
+        {
+            string pass = "";
+            do
+            {
+                ConsoleKeyInfo key = Console.ReadKey(true);
+                // Backspace Should Not Work
+                if (key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Enter)
+                {
+                    pass += key.KeyChar;
+                    Console.Write("*");
+                }
+                else
+                {
+                    if (key.Key == ConsoleKey.Backspace && pass.Length > 0)
+                    {
+                        pass = pass.Substring(0, (pass.Length - 1));
+                        Console.Write("\b \b");
+                    }
+                    else if (key.Key == ConsoleKey.Enter)
+                    {
+                        break;
+                    }
+                }
+            } while (true);
+            return pass;
+        }
+        public static string ReadNumber()
+        {
+            var buf = new StringBuilder();
+            for (; ; )
+            {
+                var key = Console.ReadKey(true);
+                if (key.Key == ConsoleKey.Enter && buf.Length >= 0)
+                {
+                    return buf.ToString();
+                }
+                else if (key.Key == ConsoleKey.Backspace && buf.Length > 0)
+                {
+                    buf.Remove(buf.Length - 1, 1);
+                    Console.Write("\b \b");
+                }
+                else if ("0123456789.-".Contains(key.KeyChar))
+                {
+                    buf.Append(key.KeyChar);
+                    Console.Write(key.KeyChar);
+                }
+                else
+                {
+                    System.Console.Beep();
+                }
+            }
         }
     }
 }

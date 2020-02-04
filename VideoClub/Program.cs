@@ -44,8 +44,8 @@ namespace VideoClub
                                         HpMovies.ShowMoviesInTableAccordingAge(myDB, myClientTester, 1);
                                         break;
                                     case (int)Menu.MainOp2.rent: //Alquila Movie
-                                        Console.Write("ID Pelicula: ");
-                                        int ID_Movie = Convert.ToInt32(Console.ReadLine());
+                                        Console.Write("\nID Pelicula: ");
+                                        int ID_Movie = Convert.ToInt32(HpVarious.ReadNumber());
                                         HpMovies.RentMovie(myDB, myClientTester, ID_Movie);
                                         //HpMovies.ShowMoviesInTableAccordingAge(myDB, myClientTester, true);
                                         break;
@@ -58,7 +58,7 @@ namespace VideoClub
                             break;
                     }
                 } while (menuOp < 4);
-
+                Console.Write("\n\nGood Bye Dude...!!!\n\n\n", Color.Azure);
             }
 
         }

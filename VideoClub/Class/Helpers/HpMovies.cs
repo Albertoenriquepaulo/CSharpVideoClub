@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Text;
+using System.Threading;
 using VideoClub.Class.Tables;
 
 namespace VideoClub.Class.Helpers
@@ -16,7 +17,9 @@ namespace VideoClub.Class.Helpers
         public static void ShowMoviesInTableRentedByClient(SQLDBConnection myDB, Client cToCompare)
         {
             DataTable dTable;
-            Console.WriteLine($"MOSTRANDO PELICULAS ALQUILADAS\n");
+            Console.WriteLine($"\nMOSTRANDO PELICULAS ALQUILADAS\n");
+            HpVarious.ShowProgressBar(10, 100);
+
             var table = new ConsoleTable("Title");
             // SELECT M.Title FROM Clients C, Rented R, Movies M WHERE C.ID_Client = 1 AND R.ID_Client = 1 AND M.ID_Movie = R.ID_Movie
             dTable = RUDI.Read(myDB, "Clients C, Rented R, Movies M", $"M.Title", $"C.ID_Client = {cToCompare.ID_Client} AND R.ID_Client = {cToCompare.ID_Client} AND M.ID_Movie = R.ID_Movie");
@@ -46,7 +49,9 @@ namespace VideoClub.Class.Helpers
         public static void ShowMoviesInTableAccordingAge(SQLDBConnection myDB, Client cToCompare, int includeStatus = 2)
         {
             DataTable dTable;
-            Console.WriteLine($"MOSTRANDO PELICULAS DISPONIBLES\n");
+            Console.WriteLine($"\nMOSTRANDO PELICULAS DISPONIBLES\n");
+            HpVarious.ShowProgressBar(10, 100);
+
             var table = new ConsoleTable("ID", "Title", "Synopsis");
             if (includeStatus == 2)
                 dTable = RUDI.Read(myDB, "Movies", $"ID_Movie, Title, Synopsis", $"RecommendedAge <= {HpVarious.GetAges(cToCompare.Birthdate)}");
@@ -75,7 +80,8 @@ namespace VideoClub.Class.Helpers
 
         public static bool RentMovie(SQLDBConnection myDB, Client cWillRent, int ID_Movie)
         {
-            Console.WriteLine($"RENTANDO PELICULA DISPONIBLE\n");
+            Console.WriteLine($"PROCESANDO ALQUILER DE PELICULA DISPONIBLE\n");
+            HpVarious.ShowProgressBar(10, 100);
             //var table = new ConsoleTable("ID", "Title", "Synopsis");
 
             if (CanCLientRentTheMovie(myDB, ID_Movie, cWillRent)) //Si existe la peli y si esta disponible
@@ -85,7 +91,7 @@ namespace VideoClub.Class.Helpers
                     if (RUDI.Update(myDB, "Movies", "State=0", $"ID_Movie={ID_Movie}") == 1)
                     {
                         DataTable dTable = RUDI.Read(myDB, "Rented", "ID_Rented", $"ID_Movie={ID_Movie} AND ID_Client={cWillRent.ID_Client}");
-                        Console.WriteLine($"El alquiler se ha procesado con éxito, bajo el ID_Rented: {dTable.Rows[0].Field<int>(0)}", Color.Red);
+                        Console.WriteLine($"\nEl alquiler se ha procesado con éxito, bajo el ID_Rented: {dTable.Rows[0].Field<int>(0)}", Color.Blue);
                         Menu.WriteContinue();
                         return true;
                     }
