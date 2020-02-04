@@ -5,6 +5,7 @@ namespace VideoClub
 {
     class Program
     {
+        //Clean Project with All Nugets PAcket Installed
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
