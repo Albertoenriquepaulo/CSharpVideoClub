@@ -49,7 +49,7 @@ namespace VideoClub.Class.Helpers
         public static void ShowMoviesInTableAccordingAge(SQLDBConnection myDB, Client cToCompare, int includeStatus = 2)
         {
             DataTable dTable;
-            Console.WriteLine($"\nMOSTRANDO PELICULAS DISPONIBLES\n");
+            Console.WriteLine($"\nMOSTRANDO CATALOGO\n");
             HpVarious.ShowProgressBar(10, 100);
 
             var table = new ConsoleTable("ID", "Title", "Synopsis");

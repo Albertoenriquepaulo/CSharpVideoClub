@@ -157,7 +157,7 @@ namespace VideoClub.Class.Helpers
             } while (true);
             return pass;
         }
-        public static string ReadNumber()
+        public static string ReadNumber(string strCharAllowed)
         {
             var buf = new StringBuilder();
             for (; ; )
@@ -172,7 +172,7 @@ namespace VideoClub.Class.Helpers
                     buf.Remove(buf.Length - 1, 1);
                     Console.Write("\b \b");
                 }
-                else if ("0123456789.-".Contains(key.KeyChar))
+                else if (strCharAllowed.Contains(key.KeyChar))
                 {
                     buf.Append(key.KeyChar);
                     Console.Write(key.KeyChar);

@@ -13,6 +13,7 @@
 
 --SELECT * FROM Movies
 
+INSERT INTO Clients VALUES ('123', 'Axl', 'Rose', '05/01/2004', 'email@email.com', '123');
 
 --SELECT ID_Movie, Title, Synopsis FROM Movies WHERE RecommendedAge <= 41
 
@@ -24,7 +25,7 @@
 --SELECT * FROM Clients
 SELECT * FROM Rented
 
-SELECT * FROM Movies
+
 SELECT Title, RecommendedAge FROM Movies WHERE Movies.RecommendedAge <= 41 AND Movies.State = 0; 
 
 SELECT * FROM Clients
@@ -32,4 +33,27 @@ SELECT * FROM Clients
 SELECT email FROM Clients WHERE DNI LIKE 'Y6534922S' AND email LIKE '123456'
 
 SELECT * FROM Clients WHERE DNI LIKE 'y6534922s'
+SELECT * FROM Movies
+SELECT ID_Movie, Title, Synopsis FROM Movies WHERE State = 1 AND RecommendedAge <= 41
+SELECT ID_Movie, Title, Synopsis FROM Movies WHERE State = 1 AND RecommendedAge <= 41
+
 --UPDATE Movies SET State = 1
+--DELETE FROM Rented
+--DBCC CHECKIDENT (Rented, RESEED, 0)
+
+SELECT * FROM Clients
+SELECT * FROM Movies
+SELECT * FROM Rented
+
+SELECT M.Title FROM Clients C, Rented R, Movies M WHERE C.ID_Client = 1 AND R.ID_Client = 1 AND M.ID_Movie = R.ID_Movie
+SELECT M.Title FROM Clients C, Rented R, Movies M WHERE C.ID_Client = 1 AND R.ID_Client = 1 AND M.ID_Movie = R.ID_Movie
+
+SELECT ID_Movie FROM Movies WHERE ID_Movie=4 AND State=1
+
+UPDATE Clients
+SET DNI = 111222333
+WHERE ID_Client = 3
+
+UPDATE Clients
+SET email = 'BruceDickinson@maiden.com'
+WHERE ID_Client = 2

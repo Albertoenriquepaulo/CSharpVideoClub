@@ -13,6 +13,7 @@ namespace VideoClub.Class.Helpers
             availableMovies = 1,
             rent,
             myRents,
+            logOutIN,
             exit
         }
         public enum MainOp2
@@ -62,7 +63,7 @@ namespace VideoClub.Class.Helpers
 
             return userAndPass;
         }
-        public static int PrintMainMenu()
+        public static int PrintMainMenu(string strLogInOut)
         {
             ColorAlternatorFactory alternatorFactory = new ColorAlternatorFactory();
             ColorAlternator alternator = alternatorFactory.GetAlternator(1, Color.Aqua, Color.Aquamarine);
@@ -70,12 +71,13 @@ namespace VideoClub.Class.Helpers
             Console.Clear();
             //Console.WriteLine("SISTEMA RESERVA DE HOTEL BBKBOOTCAMP 2020 (6ta Edición)\n");
             HpVarious.WriteArt(APP_NAME);
-            Console.WriteLineAlternating("\t(1) MOSTRAR TODAS LAS PELICULAS (Alquiladas o No)", alternator);
+            Console.WriteLineAlternating("\t(1) MOSTRAR CATALOGO", alternator);
             Console.WriteLineAlternating("\t(2) ALQUILAR PELICULA", alternator);
             Console.WriteLineAlternating("\t(3) MIS ALQUILERES", alternator);
-            Console.WriteLineAlternating("\t(4) LOGOUT (SALIR)", alternator);
+            Console.WriteLineAlternating($"\t(4) {strLogInOut}", alternator);
+            Console.WriteLineAlternating("\t(5) SALIR", alternator);
             Console.Write("\nOpcion: ");
-            return Convert.ToInt32(HpVarious.ReadNumber());//return Convert.ToInt32(Console.ReadLine());
+            return Convert.ToInt32(HpVarious.ReadNumber("12345"));//return Convert.ToInt32(Console.ReadLine());
         }
 
         public static int PrintMenuOp2()
@@ -90,7 +92,7 @@ namespace VideoClub.Class.Helpers
             Console.WriteLineAlternating("\t(2) ALQUILAR PELICULA", alternator);
             Console.WriteLineAlternating("\t(3) VOLVER", alternator);
             Console.Write("\nOpcion: ");
-            return Convert.ToInt32(HpVarious.ReadNumber());
+            return Convert.ToInt32(HpVarious.ReadNumber("123"));
         }
 
         public static void WriteArea(string strArea)
@@ -107,6 +109,12 @@ namespace VideoClub.Class.Helpers
         public static void WriteConstruction()
         {
             Console.WriteLine("En Construcción", Color.Brown);
+            WriteContinue();
+        }
+
+        public static void WriteNoLog()
+        {
+            Console.WriteLine("\nERROR. Debe estar logeado\n\n", Color.Red);
             WriteContinue();
         }
     }

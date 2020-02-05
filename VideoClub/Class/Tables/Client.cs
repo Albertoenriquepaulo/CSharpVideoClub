@@ -30,5 +30,16 @@ namespace VideoClub.Class.Tables
         public string email { get; set; }
         public string pass { get; set; }
 
+        public void Clear()
+        {
+            ID_Client = 0;
+            DNI = null;
+            Name = null;
+            LastName = null;
+            // Birthdate = null;
+            this.email = null;
+            this.pass = null;
+        }
+
     }
 }
