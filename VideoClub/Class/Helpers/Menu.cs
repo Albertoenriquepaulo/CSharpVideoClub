@@ -102,7 +102,7 @@ namespace VideoClub.Class.Helpers
 
         public static void WriteContinue()
         {
-            Console.Write("Pulse Cualquier Tecla Para Continuar", Color.Azure);
+            Console.Write("Presione Enter Tecla Para Continuar\n", Color.Azure);
             Console.ReadLine();
         }
 

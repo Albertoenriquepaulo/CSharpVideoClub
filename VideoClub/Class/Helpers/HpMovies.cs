@@ -50,7 +50,7 @@ namespace VideoClub.Class.Helpers
         {
             DataTable dTable;
             Console.WriteLine($"\nMOSTRANDO CATALOGO\n");
-            HpVarious.ShowProgressBar(10, 100);
+            HpVarious.ShowProgressBar(5, 100);
 
             var table = new ConsoleTable("ID", "Title", "Synopsis");
             if (includeStatus == 2)
