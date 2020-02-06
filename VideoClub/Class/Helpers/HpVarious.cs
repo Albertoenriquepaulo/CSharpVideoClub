@@ -157,7 +157,7 @@ namespace VideoClub.Class.Helpers
             } while (true);
             return pass;
         }
-        public static string ReadNumber(string strCharAllowed)
+        public static string ReadNumber(string strCharAllowed, int qtDigitsAllowed)
         {
             var buf = new StringBuilder();
             for (; ; )
@@ -172,7 +172,7 @@ namespace VideoClub.Class.Helpers
                     buf.Remove(buf.Length - 1, 1);
                     Console.Write("\b \b");
                 }
-                else if (strCharAllowed.Contains(key.KeyChar))
+                else if (strCharAllowed.Contains(key.KeyChar) && buf.Length < qtDigitsAllowed)
                 {
                     buf.Append(key.KeyChar);
                     Console.Write(key.KeyChar);

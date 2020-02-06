@@ -22,6 +22,7 @@ namespace VideoClub
             string strLogInOut = "LOGOUT";
             // Console.WriteLine("Hello World!");
             //HpClients.InsertClient(myDB, HpVarious.AskNewUserData(myDB));
+            Console.ResetColor();
             string[] userAndPass = Menu.PrintLogInMenu(myDB);
             if (userAndPass[2] == "true")
             {
@@ -29,7 +30,7 @@ namespace VideoClub
 
                 do
                 {
-                    menuOp = Menu.PrintMainMenu(strLogInOut);
+                    menuOp = Menu.PrintMainMenu(strLogInOut, myClientTester);
                     if (menuOp == 4 && strLogInOut == "LOGIN")
                     {
                         userAndPass = Menu.PrintLogInMenu(myDB);
@@ -37,7 +38,7 @@ namespace VideoClub
                         {
                             strLogInOut = "LOGOUT";
                             myClientTester = HpClients.LoadClient(myDB, userAndPass[0]);
-                            menuOp = Menu.PrintMainMenu(strLogInOut);
+                            menuOp = Menu.PrintMainMenu(strLogInOut, myClientTester);
                         }
                     }
                     //else
@@ -49,7 +50,10 @@ namespace VideoClub
                     {
                         case (int)Menu.MainOp.availableMovies:
                             if (strLogInOut == "LOGOUT")
+                            {
                                 HpMovies.ShowMoviesInTableAccordingAge(myDB, myClientTester);
+                                Menu.WriteContinue();
+                            }
                             else
                                 Menu.WriteNoLog();
                             break;
@@ -63,32 +67,52 @@ namespace VideoClub
                                         case (int)Menu.MainOp2.showMovies:
 
                                             HpMovies.ShowMoviesInTableAccordingAge(myDB, myClientTester, 1);
-
+                                            Menu.WriteContinue();
                                             break;
                                         case (int)Menu.MainOp2.rent: //Alquila Movie
-                                            Console.Write("\nID Pelicula: ");
-                                            int ID_Movie = Convert.ToInt32(HpVarious.ReadNumber("0123456789"));
-                                            HpMovies.RentMovie(myDB, myClientTester, ID_Movie);
-                                            //HpMovies.ShowMoviesInTableAccordingAge(myDB, myClientTester, true);
+                                            HpMovies.ShowMoviesInTableAccordingAge(myDB, myClientTester, 1);
+                                            int ID_Movie = Menu.GetOpNumberFromUser("ID Pelicula", "0123456789", 4);
+                                            //Console.Write("\nID Pelicula: ");
+                                            //int ID_Movie = Convert.ToInt32(HpVarious.ReadNumber("0123456789"));
+                                            double dblNroDaysToRent = Menu.GetOpNumberFromUser("Numero de Dias", "0123456789", 2);
+                                            //Console.Write("\nNumero de Dias: ");
+                                            //double dblNroDaysToRent = Convert.ToInt32(HpVarious.ReadNumber("0123456789"));
+                                            DateTime c_Out = DateTime.Today.AddDays(dblNroDaysToRent);
+                                            HpMovies.RentMovie(myDB, myClientTester, ID_Movie, DateTime.Today, c_Out);
+                                            break;
+                                        case (int)Menu.MainOp2.returnMovie:
+                                            HpMovies.ShowMoviesInTableRentedByClient(myDB, myClientTester);
+                                            if (strLogInOut == "LOGOUT")
+                                            {
+                                                ID_Movie = Menu.GetOpNumberFromUser("ID Pelicula", "0123456789", 4);
+                                                //Console.Write("\nID Pelicula: ");
+                                                //ID_Movie = Convert.ToInt32(HpVarious.ReadNumber("0123456789"));
+                                                HpMovies.DeleteMovie(myDB, myClientTester, ID_Movie);
+                                            }
+                                            else
+                                                Menu.WriteNoLog();
                                             break;
                                         default:
-                                            if (menuOp > 3)
+                                            if (menuOp > 4)
                                             {
                                                 Console.WriteLine("\nOpción no disponible...\n\n", Color.Blue);
                                                 Menu.WriteContinue();
-                                                menuOp = 3;
+                                                menuOp = 4;
                                             }
 
                                             break;
                                     }
-                                } while (menuOp < 3);
+                                } while (menuOp < 4);
                             else
                                 Menu.WriteNoLog();
                             //HpMovies.ShowMoviesInTableAccordingAge(myDB, myClientTester, true);
                             break;
                         case (int)Menu.MainOp.myRents:
                             if (strLogInOut == "LOGOUT")
+                            {
                                 HpMovies.ShowMoviesInTableRentedByClient(myDB, myClientTester);
+                                Menu.WriteContinue();
+                            }
                             else
                                 Menu.WriteNoLog();
                             break;
@@ -101,12 +125,23 @@ namespace VideoClub
                                 Menu.WriteContinue();
                             }
                             break;
+                        //case (int)Menu.MainOp.returnMovie:
+                        //    if (strLogInOut == "LOGOUT")
+                        //    {
+                        //        Console.Write("\nID Pelicula: ");
+                        //        int ID_Movie = Convert.ToInt32(HpVarious.ReadNumber("0123456789"));
+                        //        HpMovies.DeleteMovie(myDB, myClientTester, ID_Movie);
+                        //    }
+
+                        //    else
+                        //        Menu.WriteNoLog();
+                        //    break;
                         default:
                             if (menuOp > 5)
                             {
                                 Console.WriteLine("\nOpción no disponible...\n\n", Color.Blue);
                                 Menu.WriteContinue();
-                                menuOp = 4;
+                                menuOp = 5;
                             }
                             break;
 
