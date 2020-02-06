@@ -4,6 +4,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using VideoClub.Class.Tables;
+using Console = Colorful.Console;
 
 namespace VideoClub.Class.Helpers
 {

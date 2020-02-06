@@ -1,10 +1,7 @@
 ﻿using ConsoleTables;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
-using System.Text;
-using System.Threading;
 using VideoClub.Class.Tables;
 using Console = Colorful.Console;
 
@@ -18,7 +15,7 @@ namespace VideoClub.Class.Helpers
         public static void ShowMoviesInTableRentedByClient(SQLDBConnection myDB, Client cToCompare)
         {
             DataTable dTable;
-            System.Console.ResetColor();
+            Console.ResetColor();
             Console.WriteLine($"\nMOSTRANDO TUS PELICULAS ALQUILADAS\n");
             HpVarious.ShowProgressBar(10, 100);
 
@@ -52,7 +49,6 @@ namespace VideoClub.Class.Helpers
                     table.AddRow(strInfoToPrint);
                 }
             }
-            ConsoleTableOptions o;
             Console.ResetColor();
             table.Write();
 
@@ -115,8 +111,8 @@ namespace VideoClub.Class.Helpers
             }
             else
             {
-                Console.WriteLine("Error. Pelicula no Disponible o No tiene la edad suficiente para alquilar la pelicula", Color.Red);
-                System.Console.ResetColor();
+                Console.WriteLine("Error. Pelicula no Disponible o No tiene la edad suficiente para alquilar la pelicula", Color.DarkRed);
+                Console.ResetColor();
             }
             Menu.WriteContinue();
             return false;

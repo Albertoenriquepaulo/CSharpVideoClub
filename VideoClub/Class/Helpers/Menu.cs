@@ -66,7 +66,7 @@ namespace VideoClub.Class.Helpers
 
             return userAndPass;
         }
-        public static int PrintMainMenu(string strLogInOut, Client myClientTester)
+        public static int PrintMainMenu(string strLogInOut, Client myActiveClient)
         {
             ColorAlternatorFactory alternatorFactory = new ColorAlternatorFactory();
             ColorAlternator alternator = alternatorFactory.GetAlternator(1, Color.Aqua, Color.Aquamarine);
@@ -74,8 +74,8 @@ namespace VideoClub.Class.Helpers
             Console.Clear();
             Console.ResetColor();
             HpVarious.WriteArt(APP_NAME);
-            if (myClientTester.Name != null)
-                Console.WriteLine($"{myClientTester.Name} {myClientTester.LastName}, Bienvenido...\n");
+            if (myActiveClient.Name != null)
+                Console.WriteLine($"{myActiveClient.Name} {myActiveClient.LastName} ({(DateTime.Today.Year - myActiveClient.Birthdate.Year).ToString()} años), Bienvenido...\n", Color.AliceBlue);
             Console.WriteLineAlternating("\t(1) MOSTRAR CATALOGO", alternator);
             Console.WriteLineAlternating("\t(2) ALQUILAR/DEVOLVER PELICULA", alternator);
             Console.WriteLineAlternating("\t(3) MIS ALQUILERES", alternator);
@@ -88,6 +88,7 @@ namespace VideoClub.Class.Helpers
                 strOp = HpVarious.ReadNumber("12345", 1);
             } while (strOp == "");
 
+            Console.ResetColor();
             return Convert.ToInt32(strOp);//return Convert.ToInt32(Console.ReadLine());
         }
 
@@ -97,6 +98,7 @@ namespace VideoClub.Class.Helpers
             ColorAlternator alternator = alternatorFactory.GetAlternator(1, Color.Aqua, Color.Aquamarine);
             string strOp;
             Console.Clear();
+            Console.ResetColor();
             HpVarious.WriteArt(APP_NAME);
             WriteArea("AREA ALQUILAR\n");
             Console.WriteLineAlternating("\t(1) MOSTRAR PELICULAS DISPONIBLES PERMITIDAS", alternator);
@@ -109,13 +111,13 @@ namespace VideoClub.Class.Helpers
                 Console.ResetColor();
                 strOp = HpVarious.ReadNumber("1234", 1);
             } while (strOp == "");
-
+            Console.ResetColor();
             return Convert.ToInt32(strOp);
         }
 
         public static void WriteArea(string strArea)
         {
-            Console.WriteLine(strArea, Color.FromArgb(0, 102, 255));
+            Console.WriteLine(strArea, Color.Transparent);
         }
 
         public static void WriteContinue()
@@ -146,7 +148,7 @@ namespace VideoClub.Class.Helpers
             {
                 Console.Write($"\n{strText}: ");
                 strOp = HpVarious.ReadNumber(strAllowedNumbers, qtDigitsAllowed);
-            } while (strOp == "");
+            } while (strOp == "" || Convert.ToInt32(strOp) <= 0);
 
             return Convert.ToInt32(strOp);
         }

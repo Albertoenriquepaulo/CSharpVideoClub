@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using Console = Colorful.Console;
 using System.Threading;
 
 /// <summary>
